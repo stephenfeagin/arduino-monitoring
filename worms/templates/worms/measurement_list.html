@@ -1,0 +1,27 @@
+{% block content %}
+<h2>Measurements</h2>
+
+{% if not object_list %}
+<p>No measurements yet.</p>
+{% endif %}
+
+<table>
+  <tr>
+    <th>Timestamp</th>
+    <th>Humidity</th>
+    <th>Temperature</th>
+  </tr>
+
+  {% for measurement in object_list %}
+  <tr>
+    <td>
+      {{ measurement.insert_timestamp|date:"Y-m-d" }}&nbsp;{{ measurement.insert_timestamp|time:"H:i" }}
+    </td>
+    <td>{{ measurement.humidity }}&percnt;</td>
+    <td>{{ measurement.temperature }}&deg;F</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<p><a href="{% url 'download_csv' %}">Download data as CSV</a></p>
+{% endblock content %}
